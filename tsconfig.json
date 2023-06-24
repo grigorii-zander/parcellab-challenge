@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "types": ["jest", "node", "@types/testing-library__jest-dom"],
+    "paths": {
+      "~/core/*": ["src/core/*"],
+      "~/config/*": ["src/config/*"],
+      "~/components/*": ["src/components/*"],
+      "~/hooks/*": ["src/hooks/*"],
+      "~/model/*": ["src/model/*"],
+      "~/lib/*": ["src/lib/*"],
+      "~/layouts/*": ["src/layouts/*"],
+      "~/guards/*": ["src/guards/*"],
+      "~/validation/*": ["src/validation/*"],
+      "~/providers/*": ["src/providers/*"],
+      "~/pages/*": ["src/pages/*"],
+      "~/prisma/*": ["prisma/*"]
+    }
+  },
+  "include": [
+    "types/global.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "exclude": ["node_modules", "cypress", "./cypress.config.ts"]
+}
