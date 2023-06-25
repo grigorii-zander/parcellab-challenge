@@ -7,3 +7,54 @@ datasource db {
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
+enum CheckpointStatus {
+  OrderProcessed
+  PickUpPlanned
+  Upgrade
+  InboundScan
+  DestinationDeliveryCenter
+  Scheduled
+}
+
+model Checkpoint {
+  id             String           @id @default(cuid())
+  location       String?
+  timestamp      DateTime         @default(now()) @db.Timestamptz(6)
+  status         CheckpointStatus
+  statusText     String?
+  statusDetails  String?
+  trackingNumber String
+  tracking       Tracking         @relation("trackingCheckpoint", fields: [trackingNumber], references: [trackingNumber], onDelete: Cascade)
+}
+
+model Tracking {
+  id                     String         @id @default(cuid())
+  trackingNumber         String         @unique
+  orderNo                String         @unique
+  courier                String
+  street                 String
+  zip                    String
+  city                   String
+  destinationCountryISO3 String
+  email                  String
+  checkpoints            Checkpoint[]   @relation("trackingCheckpoint")
+  items                  DeliveryItem[]
+}
+
+model DeliveryItem {
+  id             String   @id @default(cuid())
+  quantity       Int
+  trackingNumber String
+  tracking       Tracking @relation(fields: [trackingNumber], references: [trackingNumber], onDelete: Cascade)
+  articleId      String
+  article        Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+}
+
+model Article {
+  id        String         @id @default(cuid())
+  articleNo String         @unique
+  imageUrl  String?
+  name      String
+  orders    DeliveryItem[]
+}
