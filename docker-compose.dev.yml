@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgress:
+    image: "postgres:15.3-alpine3.18"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: Oom3mahj9ba0cheikief
+      POSTGRES_USER: user
+      POSTGRES_DB: parcellab
+
+  postgress-shadow:
+    image: "postgres:15.3-alpine3.18"
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: Oom3mahj9ba0cheikief
+      POSTGRES_USER: user
+      POSTGRES_DB: parcellab-shadow
+
+
