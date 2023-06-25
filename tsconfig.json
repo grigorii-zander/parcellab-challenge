@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
     "strict": true,
-    
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,27 +19,62 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "baseUrl": ".",
-    "types": ["jest", "node", "@types/testing-library__jest-dom"],
+    "types": [
+      "jest",
+      "node",
+      "@types/testing-library__jest-dom"
+    ],
     "paths": {
-      "~/core/*": ["src/core/*"],
-      "~/config/*": ["src/config/*"],
-      "~/components/*": ["src/components/*"],
-      "~/hooks/*": ["src/hooks/*"],
-      "~/model/*": ["src/model/*"],
-      "~/lib/*": ["src/lib/*"],
-      "~/layouts/*": ["src/layouts/*"],
-      "~/guards/*": ["src/guards/*"],
-      "~/validation/*": ["src/validation/*"],
-      "~/providers/*": ["src/providers/*"],
-      "~/pages/*": ["src/pages/*"],
-      "~/prisma/*": ["prisma/*"]
-    }
+      "~/core/*": [
+        "src/core/*"
+      ],
+      "~/config/*": [
+        "src/config/*"
+      ],
+      "~/components/*": [
+        "src/components/*"
+      ],
+      "~/hooks/*": [
+        "src/hooks/*"
+      ],
+      "~/lib/*": [
+        "src/lib/*"
+      ],
+      "~/layouts/*": [
+        "src/layouts/*"
+      ],
+      "~/guards/*": [
+        "src/guards/*"
+      ],
+      "~/providers/*": [
+        "src/providers/*"
+      ],
+      "~/pages/*": [
+        "src/pages/*"
+      ],
+      "~/prisma/*": [
+        "prisma/*"
+      ],
+      "~/app/api/*": [
+        "src/app/api"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "types/global.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "cypress", "./cypress.config.ts"]
+  "exclude": [
+    "node_modules",
+    "cypress",
+    "./cypress.config.ts"
+  ]
 }
