@@ -79,10 +79,7 @@
     ],
     "react/prop-types": "off",
     "react/display-name": 0,
-    "react/jsx-first-prop-new-line": [
-      2,
-      "always"
-    ],
+    "react/jsx-first-prop-new-line": 2,
     "react/jsx-closing-bracket-location": [
       2,
       "line-aligned"
