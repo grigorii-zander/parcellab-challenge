@@ -3,14 +3,41 @@ import Head from 'next/head'
 import { useTrackingItem } from '~/hooks/tracking/useTrackingItem'
 import { TrackingItem } from '~/components/TrackingItem/TrackingItem'
 import { Spinner } from '~/components/Spinner/Spinner'
+import Link from 'next/link'
+import { ErrorBlock } from '~/components/ErrorBlock/ErrorBlock'
 
 type PageProps = {
   trackingNumber: string
 }
 
 const TrackingItemPage: PageFC<PageProps> = ({ trackingNumber }) => {
-  const { data } = useTrackingItem(trackingNumber)
+  const { data, isLoading, error } = useTrackingItem(trackingNumber)
 
+  const renderContent = () => {
+    if(error) {
+      return (
+        <ErrorBlock message={error.error.message}>
+          <Link
+            href={'/'}
+            className="underline text-blue-800"
+          >
+            Back to main page
+          </Link>
+        </ErrorBlock>
+      )
+    }
+
+    if(isLoading) {
+      return <Spinner />
+    }
+
+    if(data) {
+      return (
+        <TrackingItem item={data.result} />
+      )
+    }
+    return null
+  }
   return (
     <div>
       <Head>
@@ -27,7 +54,7 @@ const TrackingItemPage: PageFC<PageProps> = ({ trackingNumber }) => {
       <main>
         <div className="flex flex-col p-2 m-2 items-center">
           <div className="rounded shadow-md border-2 p-4">
-            {data?.result ? <TrackingItem item={data.result} /> : <Spinner />}
+            {renderContent()}
           </div>
         </div>
       </main>

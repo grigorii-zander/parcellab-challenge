@@ -3,10 +3,37 @@ import { useTrackingList } from '~/hooks/tracking/useTrackingList'
 import { useUserSession } from '~/hooks/useUserSession'
 import { TrackingItemsList } from '~/components/TrackingItemsList/TrackingItemsList'
 import { Spinner } from '~/components/Spinner/Spinner'
+import { ErrorBlock } from '~/components/ErrorBlock/ErrorBlock'
 
 const Home: PageFC = () => {
   const { email } = useUserSession()
-  const { data } = useTrackingList(email)
+  const { data, isLoading, error } = useTrackingList(email)
+
+  const renderContent = () => {
+    if(error) {
+      return (
+        <ErrorBlock message={error.error.message} />
+      )
+    }
+
+    if(isLoading) {
+      return (
+        <Spinner />
+      )
+    }
+
+    if(!data || !data.result.length) {
+      return (
+        <ErrorBlock message={'Items not found'} />
+      )
+    }
+
+    if(data) {
+      return (
+        <TrackingItemsList items={data.result} />
+      )
+    }
+  }
 
   return (
     <div>
@@ -24,10 +51,7 @@ const Home: PageFC = () => {
           <h1 className="text-2xl">
             Your orders
           </h1>
-          <div>
-
-          </div>
-          {data?.result ? <TrackingItemsList items={data.result} /> : <Spinner /> }
+          {renderContent()}
         </div>
       </main>
     </div>

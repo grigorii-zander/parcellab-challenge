@@ -1,3 +1,4 @@
+import { ApiError } from 'next/dist/server/api-utils'
 import { Prisma } from '@prisma/client'
 import z, { ZodError, ZodSchema } from 'zod'
 import { HttpStatusCode } from '~/core/http'
@@ -79,6 +80,16 @@ export const routeHandler = <
       return NextResponse.json(result, { status })
 
     } catch (err) {
+      if(err instanceof ApiError) {
+        return NextResponse.json({
+          error: {
+            message: err.message,
+          },
+        }, {
+          status: err.statusCode,
+        })
+      }
+
       if(err instanceof ZodError) {
         return NextResponse.json({
           error: {

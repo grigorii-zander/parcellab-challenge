@@ -3,6 +3,7 @@ import { DeliveryItem, Checkpoint, Tracking, Article } from '@prisma/client'
 import { getTrackingItemByTrackingNumber } from '~/prisma/services/tracking'
 import z from 'zod'
 import { HttpStatusCode } from '~/core/http'
+import { throwNotFoundException } from '~/core/exceptions'
 
 type DeliveryItemWithArticle = DeliveryItem & { article: Article }
 export type Item = Tracking & { checkpoints: Checkpoint[], items: DeliveryItemWithArticle[] }
@@ -36,13 +37,7 @@ export const GET = routeHandler<GetResponse>()({
   })
 
   if(!item) {
-    throw new Error('item now found')
-    // return {
-    //   status: HttpStatusCode.NotFound,
-    //   error: {
-    //     message: 'Requested item not found.',
-    //   },
-    // }
+    throwNotFoundException('Item not found')
   }
 
   return {

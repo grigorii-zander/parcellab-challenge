@@ -12,3 +12,10 @@ export enum HttpStatusCode {
   UnprocessableEntity = 422,
   InternalServerError = 500,
 }
+
+
+export type BaseError = {
+  error: {
+    message: string
+  }
+}
