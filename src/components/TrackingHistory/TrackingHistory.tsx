@@ -3,7 +3,10 @@ import { useMemo } from 'react'
 
 const Checkpoint: FC<{ item: Checkpoint, current: boolean }> = ({ item, current }) => {
   return (
-    <div className='flex sm:flex-row justify-end flex-row-reverse gap-1 items-start'>
+    <div
+      className='flex sm:flex-row justify-end flex-row-reverse gap-1 items-start'
+      title={item.statusDetails || ''}
+    >
       <div
         data-current={current}
         className='whitespace-nowrap data-[current=true]:font-bold'
