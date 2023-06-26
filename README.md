@@ -53,6 +53,8 @@ Endpoints are created by this helper function [src/core/route-handler.ts](./src/
 that the endpoint will never return stacktrace to a client. And also it applies validation schemas to requests. It may look a bit overengineered, but I just wanted to
 show you that I know how generics work 😄
 
+Also, please check the database models [prisma/schema.prisma](./prisma/schema.prisma). I decided to change data models,
+lets talk about in on the interview :)
 
 ### "Authentication"
 Here is how authentication works. Here you can find the implementation [src/guards/AuthGuard.tsx](./src/guards/AuthGuard.tsx).
