@@ -44,8 +44,8 @@ export const AuthGuard: FC<true> = ({ children }) => {
   const router = useRouter()
 
   useEffect(() => {
-    const fromPath = router.pathname.startsWith('/auth') ? '/' : router.pathname
-    if(!context.email && router.pathname !== '/auth') {
+    const fromPath = router.asPath.startsWith('/auth') ? '/' : router.asPath
+    if(!context.email && !router.asPath.startsWith('/auth')) {
       context.setFrom(fromPath)
       router.replace('/auth')
     }

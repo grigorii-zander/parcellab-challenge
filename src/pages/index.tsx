@@ -8,7 +8,7 @@ const Home: PageFC = () => {
   const { data } = useTrackingList(email)
 
   return (
-    <div className="h-screen">
+    <div>
       <Head>
         <title>
           ParcelLab fullstack challenge
@@ -19,7 +19,7 @@ const Home: PageFC = () => {
         />
       </Head>
       <main>
-        <div className="flex flex-col sm:items-center gap-2 m-2 p-2 rounded shadow-md">
+        <div className="flex flex-col sm:items-center gap-2 m-2 p-2">
           <h1 className="text-2xl">
             Your orders
           </h1>

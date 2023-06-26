@@ -32,3 +32,27 @@ export const getTrackingList = ({
       : undefined,
   })
 }
+
+export const getTrackingItemByTrackingNumber = ({
+  trackingNumber,
+  checkpointsCount,
+}: { trackingNumber: string, checkpointsCount?: number }) => {
+  return prisma.tracking.findUnique({
+    where: {
+      trackingNumber,
+    },
+    include: {
+      checkpoints: {
+        take: checkpointsCount,
+        orderBy: {
+          timestamp: 'desc',
+        },
+      },
+      items: {
+        include: {
+          article: true,
+        },
+      },
+    },
+  })
+}
