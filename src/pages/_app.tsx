@@ -5,12 +5,13 @@ import { Toaster } from 'react-hot-toast'
 import TopBarProgress from 'react-topbar-progress-indicator'
 import { SWRConfig } from 'swr'
 
-import progressBarConfig from '../config/progress-bar/index'
-import { swrConfig } from '../config/swr'
+import progressBarConfig from '~/config/progress-bar/index'
+import { swrConfig } from '~/config/swr'
 
 import '../styles/globals.css'
+import { AuthGuard, AuthGuardProvider } from '~/guards/AuthGuard'
 
-const App: FC<{ Component: FC, pageProps: object }> = ({ Component, pageProps }) => {
+const App: FC<{ Component: FC & { requireAuth?: boolean }, pageProps: object }> = ({ Component, pageProps }) => {
   const [progress, setProgress] = useState(false)
   const swrOptions = swrConfig()
 
@@ -26,11 +27,21 @@ const App: FC<{ Component: FC, pageProps: object }> = ({ Component, pageProps })
         attribute="class"
         enableSystem={false}
       >
-        {progress && <TopBarProgress />}
-        <Toaster />
-        <Component
-          {...pageProps}
-        />
+        {progress && <TopBarProgress/>}
+        <Toaster/>
+        <AuthGuardProvider>
+          {
+            Component.requireAuth ? (
+              <AuthGuard>
+                <Component
+                  {...pageProps}
+                />
+              </AuthGuard>
+            ) : (
+              <Component {...pageProps} />
+            )
+          }
+        </AuthGuardProvider>
       </ThemeProvider>
     </SWRConfig>
   )

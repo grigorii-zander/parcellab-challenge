@@ -15,4 +15,7 @@ declare global {
     Props extends boolean
       ? ComponentWithEmptyProps<Props>
       : ComponentWithProps<Props, WithChildren>
+
+  type PageFC<Props extends (Record<string, any> | boolean) = false, WithChildren extends boolean = false> =
+    FC<Props, WithChildren> & { requireAuth?: boolean }
 }

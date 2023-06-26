@@ -1,8 +1,14 @@
 import Head from 'next/head'
+import { useTrackingList } from '~/hooks/tracking/useTrackingList'
+import { useUserSession } from '~/hooks/useUserSession'
+import { TrackingItemsList } from '~/components/TrackingItemsList/TrackingItemsList'
 
-const Home: FC = () => {
+const Home: PageFC = () => {
+  const { email } = useUserSession()
+  const { data } = useTrackingList(email)
+
   return (
-    <>
+    <div className="h-screen">
       <Head>
         <title>
           ParcelLab fullstack challenge
@@ -13,10 +19,17 @@ const Home: FC = () => {
         />
       </Head>
       <main>
-        Sup
+        <div className="flex flex-col sm:items-center gap-2 m-2 p-2 rounded shadow-md">
+          <h1 className="text-2xl">
+            Your orders
+          </h1>
+          {data?.result ? <TrackingItemsList items={data.result} /> : null}
+        </div>
       </main>
-    </>
+    </div>
   )
 }
+
+Home.requireAuth = true
 
 export default Home

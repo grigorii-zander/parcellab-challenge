@@ -21,7 +21,7 @@ type OptionalObj<T> = T extends undefined ? Record<string, never> : T
 // Here is a typescript proposal. Hope we'll see it in the near future:
 // https://github.com/microsoft/TypeScript/issues/26242
 export const routeHandler = <
-  Response extends ({ data: any } | { error: any }),
+  Response extends ({ result: any } | { error: any }),
 >() => <
   QuerySchema extends ZodSchema | undefined = undefined,
   BodySchema extends ZodSchema | undefined = undefined,
@@ -34,12 +34,16 @@ export const routeHandler = <
     bodySchema?: BodySchema,
     paramsSchema?: ParamsSchema
   },
-  handler: (handlerParams: {
-    req: NextRequest,
-    body: ZodSchemaResult<BodySchema>,
-    params: ZodSchemaResult<ParamsSchema>,
-    query: ZodSchemaResult<QuerySchema>,
-  } & OptionalObj<Injection>) => Promise<[HttpStatusCode, Response]>,
+  handler: (
+    handlerParams: {
+      req: NextRequest,
+      body: ZodSchemaResult<BodySchema>,
+      params: ZodSchemaResult<ParamsSchema>,
+      query: ZodSchemaResult<QuerySchema>,
+    } & OptionalObj<Injection>
+  ) => Promise<{
+    status: HttpStatusCode,
+  } & Response>,
 ) => {
   const finalHandler = async (req: NextRequest, reqOptions: { params: any }) => {
     try {
@@ -65,7 +69,7 @@ export const routeHandler = <
         params = await opts.paramsSchema.parseAsync(reqOptions?.params)
       }
 
-      const [status, result] = await handler({
+      const { status, ...result } = await handler({
         req,
         body,
         query,
