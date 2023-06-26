@@ -1,6 +1,7 @@
 import { Checkpoint, Tracking, DeliveryItem, Article } from '@prisma/client'
 import { LabeledBlock } from '~/components/LabeledBlock/LabeledBlock'
 import { TrackingHistory } from '~/components/TrackingHistory/TrackingHistory'
+import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 type DeliveryItemWithArticle = DeliveryItem & { article: Article }
 export type Item = Tracking & { checkpoints: Checkpoint [], items: DeliveryItemWithArticle[] }
@@ -32,12 +33,23 @@ const DeliveryItem: FC<{ item: DeliveryItemWithArticle }> = ({ item }) => {
       </div>
     </div>
   )
-
 }
 
 const DeliveryItemsList: FC<{ items: DeliveryItemWithArticle[] }> = ({ items }) => {
+
+  if(!items.length) {
+    return (
+      <div className="flex gap-2 items-center">
+        <ExclamationTriangleIcon className="w-[18px] text-yellow-400" />
+        <div>
+          No data available
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col mt-2 gap-2">
+    <div className="flex flex-col gap-2">
       {items.map((item) => (
         <DeliveryItem
           key={item.id}
@@ -79,7 +91,7 @@ export const TrackingItem: FC<{ item: Item }> = ({ item }) => {
           </div>
         </div>
         <div>
-          <h2 className='text-lg pb-1 whitespace-nowrap'>
+          <h2 className='text-lg pb-1 whitespace-nowrap mb-2'>
             Articles
           </h2>
           <DeliveryItemsList items={item.items} />
