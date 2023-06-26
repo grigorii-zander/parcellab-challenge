@@ -1,5 +1,4 @@
 import { ApiError } from 'next/dist/server/api-utils'
-import { Prisma } from '@prisma/client'
 import z, { ZodError, ZodSchema } from 'zod'
 import { HttpStatusCode } from '~/core/http'
 import { NextRequest, NextResponse } from 'next/server'
@@ -91,17 +90,6 @@ export const routeHandler = <
       }
 
       if(err instanceof ZodError) {
-        return NextResponse.json({
-          error: {
-            message: err.message,
-          },
-        }, {
-          status: HttpStatusCode.BadRequest,
-        })
-      }
-
-      // TODO: provide message for prisma errors
-      if(err instanceof Prisma.PrismaClientKnownRequestError) {
         return NextResponse.json({
           error: {
             message: err.message,
