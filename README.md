@@ -1,16 +1,19 @@
+> Original challenge text is here [./challenge.md](./challenge.md)
+
+
 
 ## Tech stack
 - nextjs
 - tailwind
 - prisma
-- pnpm
+- pnpm https://pnpm.io/installation
 - docker
 - postgres
 
 ### Why nextjs?
 I decided to pick nextjs as a primary tool for this app because of two reasons. First, I wanted to start as soon as possible.
 And second, I wanted to keep my frontend and backend in a single app,
-but I can only spend a part day setting it up with the tools I usually prefer.
+but I can't spend a whole day setting it up with the tools I usually prefer.
 
 In my opinion, the [nextjs API Route Handler](https://nextjs.org/docs/app/building-your-application/routing/router-handlers)
 is not super great foundation for a real app. It lacks lots of features, and it's too basic. But for something relatively simple, it fits perfectly.
@@ -18,8 +21,7 @@ is not super great foundation for a real app. It lacks lots of features, and it'
 In a real app, I prefer to take something like nestjs. I can't imagine building an API without a proper dependency injection mechanism.
 
 ### Why tailwind?
-All we usually do on the frontend side is putting flexboxes/grids and gaps here and there. Tailwind got you covered with that. It makes
-it pretty easy. It just saves lots of time.
+It just saves lots of time.
 
 ### Why postgres
 From the data sample provided in the task it's clear that this app potentially may have lots of relations between data models.
@@ -62,25 +64,17 @@ The email is stored in memory. If you reload the page, the user session will be 
 
 
 
-## What is missing and why I can't call it a "real app"
+## What I would add if I had more time
 It took more than four hours to solve, but I tried not to overtime on this. Most features are missing just because lack of time.
 
 
-There is no authentication/authorization.
+- Auth. There is no authentication/authorization.
 It just prompts you once to enter an email and stores this data in memory until session is over (or page reloaded).
-
-
-There is no any kind of pagination. It just shows you the list of first few items.
-
-
-Error handling is primitive. In case of an error, the API will return just a string. No domain specific error codes, translation constants,
+- Pagination. There is no any kind of pagination. It just shows you the list of first few items.
+- Error handling. In case of an error, the API will return just a string. No domain specific error codes, translation constants,
 etc. Just a raw error string.
-
-
-No logging system, no trace-ids, etc.
-
-
-No tests.
+- Logging system. Tracelogs, etc. (to comply with https://12factor.net/ 😄)
+- Tests. It took more time than I expected to set things up.
 
 
 ## How to run the app
