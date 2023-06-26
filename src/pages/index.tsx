@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useTrackingList } from '~/hooks/tracking/useTrackingList'
 import { useUserSession } from '~/hooks/useUserSession'
 import { TrackingItemsList } from '~/components/TrackingItemsList/TrackingItemsList'
+import { Spinner } from '~/components/Spinner/Spinner'
 
 const Home: PageFC = () => {
   const { email } = useUserSession()
@@ -23,7 +24,10 @@ const Home: PageFC = () => {
           <h1 className="text-2xl">
             Your orders
           </h1>
-          {data?.result ? <TrackingItemsList items={data.result} /> : null}
+          <div>
+
+          </div>
+          {data?.result ? <TrackingItemsList items={data.result} /> : <Spinner /> }
         </div>
       </main>
     </div>

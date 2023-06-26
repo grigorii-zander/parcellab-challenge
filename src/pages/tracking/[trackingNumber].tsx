@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTrackingItem } from '~/hooks/tracking/useTrackingItem'
 import { TrackingItem } from '~/components/TrackingItem/TrackingItem'
+import { Spinner } from '~/components/Spinner/Spinner'
 
 type PageProps = {
   trackingNumber: string
@@ -26,7 +27,7 @@ const TrackingItemPage: PageFC<PageProps> = ({ trackingNumber }) => {
       <main>
         <div className="flex flex-col p-2 m-2 items-center">
           <div className="rounded shadow-md border-2 p-4">
-            {data?.result ? <TrackingItem item={data.result} /> : null}
+            {data?.result ? <TrackingItem item={data.result} /> : <Spinner />}
           </div>
         </div>
       </main>
