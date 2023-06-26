@@ -4,7 +4,7 @@ import { useAutoFocusRef } from '~/hooks/useAutoFocusRef'
 export const LoginForm: FC<{
   onSubmit: (email: string) => void
 }> = ({ onSubmit }) => {
-  const [email, setEmail] = useState('julian@parcellab.com')
+  const [email, setEmail] = useState('')
 
   const inputRef = useAutoFocusRef()
 
