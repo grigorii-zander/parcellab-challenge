@@ -1,7 +1,6 @@
 import { ThemeProvider } from 'next-themes'
 import Router from 'next/router'
 import { useState } from 'react'
-import { Toaster } from 'react-hot-toast'
 import TopBarProgress from 'react-topbar-progress-indicator'
 import { SWRConfig } from 'swr'
 
@@ -28,7 +27,6 @@ const App: FC<{ Component: FC & { requireAuth?: boolean }, pageProps: object }> 
         enableSystem={false}
       >
         {progress && <TopBarProgress/>}
-        <Toaster/>
         <AuthGuardProvider>
           {
             Component.requireAuth ? (
