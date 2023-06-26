@@ -14,14 +14,12 @@ const DeliveryItem: FC<{ item: DeliveryItemWithArticle }> = ({ item }) => {
         {item.quantity}
       </div>
       <div className="flex gap-4 items-center">
-        <div>
-          {item.article.imageUrl ? (
-            <img
-              className="max-w-[48px] max-h-[48px] rounded"
-              src={item.article.imageUrl}
-            />
-          ) : null}
-        </div>
+        {item.article.imageUrl ? (
+          <div
+            className="w-[48px] h-[48px] rounded overflow-hidden bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${item.article.imageUrl})` }}
+          />
+        ) : null}
         <div className="flex flex-col gap-1">
           <div className="text-sm font-bold">
             {item.article.name}
